@@ -1,0 +1,8 @@
+val invec=sc.textFile("/user/rsd352/vec.txt")
+val inmat=sc.textFile("/user/rsd352/mat.txt")
+val matv=inmat.map(line=>line.split(",")).map({case Array(i,j,v) => (j,(i,v))})
+val vecv=invec.map(line=>line.split(",")).map({case Array(j,k,v) => (j,(k,v))})
+val res=matv.join(vecv)
+val res2=res.map({case (_,((i,m),(k,v))) => ((i,k),m.toDouble*v.toDouble)})
+val ans=res2.reduceByKey(_+_)
+ans.saveAsTextFile("/user/rsd352/Ans1A-2D")
